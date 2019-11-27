@@ -2,7 +2,7 @@
 //due to the data portion. May try again later.
 function updFirst() {
 	var ajax_control = $.ajax({
-		url: '/Apoco/account/updateFirst',
+		url: 'https://apoco-app.herokuapp.com//account/updateFirst',
 		type: 'POST',
 		data: {firstName: $('#firstName').val()} //Sends the data for form processing. Same below.
 	});
@@ -13,7 +13,7 @@ function updFirst() {
 
 function updLast() {
 	var ajax_control = $.ajax({
-		url: '/account/updateLast',
+		url: 'https://apoco-app.herokuapp.com/account/updateLast',
 		type: 'POST',
 		data: {lastName: $('#lastName').val()}
 	});
@@ -24,7 +24,7 @@ function updLast() {
 
 function updUser() {
 	var ajax_control = $.ajax({
-		url: '/account/updateUser',
+		url: 'https://apoco-app.herokuapp.com/account/updateUser',
 		type: 'POST',
 		data: {username: $('#username').val()}
 	});
@@ -35,7 +35,7 @@ function updUser() {
 
 function updEmail() {
 	var ajax_control = $.ajax({
-		url: '/account/updateEmail',
+		url: 'https://apoco-app.herokuapp.com/account/updateEmail',
 		type: 'POST',
 		data: {email: $('#email').val()}
 	});
@@ -46,7 +46,7 @@ function updEmail() {
 
 function updPass() {
 	var ajax_control = $.ajax({
-		url: '/account/updatePass',
+		url: 'https://apoco-app.herokuapp.com/account/updatePass',
 		type: 'POST',
 		data: {oldPass: $('#oldPass').val(),
 			pass: $('#pass').val(),
