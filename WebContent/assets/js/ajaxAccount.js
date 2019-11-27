@@ -26,7 +26,7 @@ function updLast() {
 
 function updUser() {
 	var ajax_control = $.ajax({
-		url: 'https://apoco-app.herokuapp.com/account/updateUser',
+		url: 'account/updateUser',
 		type: 'POST',
 		data: {username: $('#username').val()}
 	});
