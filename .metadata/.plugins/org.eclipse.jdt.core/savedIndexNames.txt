@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+F:\Repositories\Apoco\.metadata\.plugins\org.eclipse.jdt.core
+2889141278.index
+803845036.index

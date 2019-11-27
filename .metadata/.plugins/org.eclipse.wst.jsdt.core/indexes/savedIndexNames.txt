@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+F:\Repositories\Apoco\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+4241474342.index
+2889141278.index
+3932759394.index
+3310812984.index
+2350398609.index
