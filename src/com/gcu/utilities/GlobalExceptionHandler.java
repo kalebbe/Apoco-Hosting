@@ -28,13 +28,13 @@ public class GlobalExceptionHandler {
 	 * @param session This is used to set the theme of the webpage.
 	 * @param e This is used to print the stacktrace of the error.
 	 * @return String This is returning to the databaseError view.
-	 *//*
+	 */
 	@ExceptionHandler({ SQLException.class, DataAccessException.class })
 	public String databaseError(HttpSession session, SQLException e) {
 		session.setAttribute("theme", null);
 		e.printStackTrace();
 		return "databaseError";
-	} */
+	}
 
 	/**
 	 * This should only be reachable when the user's session has been timed out if
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
 	 * @param session This is used to get the id of the user and send feedback.
 	 * @return String This is returning the user to home or the login page.
 	 */
-	/*@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500 error
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500 error
 	@ExceptionHandler(NullPointerException.class)
 	public String timeout(HttpSession session) {
 		if (session.getAttribute("id") == null) {
@@ -56,5 +56,5 @@ public class GlobalExceptionHandler {
 		else {
 			return "userHome";
 		}
-	}*/
+	}
 }
