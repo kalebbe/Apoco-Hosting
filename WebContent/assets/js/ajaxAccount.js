@@ -13,7 +13,7 @@ function updFirst() {
 
 function updLast() {
 	var ajax_control = $.ajax({
-		url: '/Apoco/account/updateLast',
+		url: '/account/updateLast',
 		type: 'POST',
 		data: {lastName: $('#lastName').val()}
 	});
@@ -24,7 +24,7 @@ function updLast() {
 
 function updUser() {
 	var ajax_control = $.ajax({
-		url: '/Apoco/account/updateUser',
+		url: '/account/updateUser',
 		type: 'POST',
 		data: {username: $('#username').val()}
 	});
@@ -35,7 +35,7 @@ function updUser() {
 
 function updEmail() {
 	var ajax_control = $.ajax({
-		url: '/Apoco/account/updateEmail',
+		url: '/account/updateEmail',
 		type: 'POST',
 		data: {email: $('#email').val()}
 	});
@@ -46,7 +46,7 @@ function updEmail() {
 
 function updPass() {
 	var ajax_control = $.ajax({
-		url: '/Apoco/account/updatePass',
+		url: '/account/updatePass',
 		type: 'POST',
 		data: {oldPass: $('#oldPass').val(),
 			pass: $('#pass').val(),

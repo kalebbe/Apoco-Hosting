@@ -16,7 +16,7 @@ function ajaxPost(url, name, value, name2, name3){
 		dataObject[name3] = $("#" + name3).val();
 	}
 	var ajax_control = $.ajax({
-		url: '/Apoco/' + url,
+		url: '/' + url,
 		type: 'POST',
 		data: dataObject
 	});
@@ -33,7 +33,7 @@ function ajaxFeed(url, name, value, name2, value2){
 		dataObject[name2] = $(value2).val();
 	}
 	var ajax_control = $.ajax({
-		url: '/Apoco/' + url,
+		url: '/' + url,
 		type: 'POST',
 		data: dataObject
 	});
