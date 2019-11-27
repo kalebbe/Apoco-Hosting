@@ -28,13 +28,13 @@ public class GlobalExceptionHandler {
 	 * @param session This is used to set the theme of the webpage.
 	 * @param e This is used to print the stacktrace of the error.
 	 * @return String This is returning to the databaseError view.
-	 */
+	 *//*
 	@ExceptionHandler({ SQLException.class, DataAccessException.class })
 	public String databaseError(HttpSession session, SQLException e) {
 		session.setAttribute("theme", null);
 		e.printStackTrace();
 		return "databaseError";
-	}
+	} */
 
 	/**
 	 * This should only be reachable when the user's session has been timed out if
