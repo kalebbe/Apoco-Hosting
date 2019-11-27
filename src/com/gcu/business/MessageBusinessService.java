@@ -213,6 +213,10 @@ public class MessageBusinessService implements MessageBusinessInterface {
 	public boolean checkRead(int tid, int uid) {
 		Message msg = dao.getLastThread(tid);
 		
+		if(msg == null){
+			return false;
+		}
+		
 		//User sent the last message, so they've read the thread
 		if(uid == msg.getSenderId()) {
 			return true;

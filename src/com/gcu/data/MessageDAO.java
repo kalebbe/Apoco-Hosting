@@ -47,10 +47,15 @@ public class MessageDAO implements DataAccessInterface<Message> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Message getLastThread(int id) {
-		String sql;
-		sql = "SELECT * FROM messages where PARENT_ID=? ORDER BY DATE_SENT desc LIMIT 1";
-		Message message = (Message) jdbcTemp.queryForObject(sql, new Object[] { id }, new MessageMapper());
-		return message;
+		try{
+			String sql;
+			sql = "SELECT * FROM messages where PARENT_ID=? ORDER BY DATE_SENT desc LIMIT 1";
+			Message message = (Message) jdbcTemp.queryForObject(sql, new Object[] { id }, new MessageMapper());
+			return message;
+		}
+		catch(EmptyResultDataAccessException e){
+			return null;
+		}
 	}
 
 	/**
