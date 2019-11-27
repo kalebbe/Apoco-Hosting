@@ -31,7 +31,7 @@ public class DatingMapper implements RowMapper {
 		Dating dat = new Dating();
 		
 		//Splitting up the date to put it back int eh object
-		String date = rs.getString("BIRTH_DATE");
+		String date = rs.getString("DOB");
 		String arr[] = date.split("/");
 		
 		//Setting each value of the new Dating object.
