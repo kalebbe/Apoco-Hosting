@@ -5,7 +5,7 @@ document.addEventListener('contextmenu', function (e) {
 
 function Post(val) {
 	var ajax_control = $.ajax({
-		url: 'https://apoco-app.herokuapp.com/mines/right',
+		url: '/mines/right',
 		type: 'POST',
 		data: {btn: val}
 	});

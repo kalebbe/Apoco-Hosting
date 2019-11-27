@@ -3,7 +3,7 @@
 function updFirst() {
 	console.log("Were here");
 	var ajax_control = $.ajax({
-		url: 'https://apoco-app.herokuapp.com/account/updateFirst',
+		url: '/account/updateFirst',
 		type: 'POST',
 		data: {firstName: $('#firstName').val()} //Sends the data for form processing. Same below.
 	});
@@ -26,7 +26,7 @@ function updLast() {
 
 function updUser() {
 	var ajax_control = $.ajax({
-		url: 'account/updateUser',
+		url: '/account/updateUser',
 		type: 'POST',
 		data: {username: $('#username').val()}
 	});
@@ -37,7 +37,7 @@ function updUser() {
 
 function updEmail() {
 	var ajax_control = $.ajax({
-		url: 'https://apoco-app.herokuapp.com/account/updateEmail',
+		url: '/account/updateEmail',
 		type: 'POST',
 		data: {email: $('#email').val()}
 	});
@@ -48,7 +48,7 @@ function updEmail() {
 
 function updPass() {
 	var ajax_control = $.ajax({
-		url: 'https://apoco-app.herokuapp.com/account/updatePass',
+		url: '/account/updatePass',
 		type: 'POST',
 		data: {oldPass: $('#oldPass').val(),
 			pass: $('#pass').val(),
