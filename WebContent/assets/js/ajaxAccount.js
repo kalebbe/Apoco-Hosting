@@ -1,6 +1,7 @@
 //I attempted to put all of these into one method, but it didn't seem possible
 //due to the data portion. May try again later.
 function updFirst() {
+	console.log("We're here");
 	var ajax_control = $.ajax({
 		url: 'https://apoco-app.herokuapp.com//account/updateFirst',
 		type: 'POST',
