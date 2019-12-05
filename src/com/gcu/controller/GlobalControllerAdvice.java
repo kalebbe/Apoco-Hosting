@@ -54,6 +54,10 @@ public class GlobalControllerAdvice {
 				requests = ms.getNotifications(id, "connection");
 				messages = ms.getNotifications(id, "busUnread");
 			}
+			else if(session.getAttribute("theme") == "dating") {
+				requests = 0;
+				messages = ms.getNotifications(id, "datUnread");
+			}
 			session.setAttribute("requests", requests);
 			session.setAttribute("messages", messages);
 		}

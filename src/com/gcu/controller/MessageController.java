@@ -95,13 +95,13 @@ public class MessageController {
 	 */
 	@RequestMapping(path="/viewMessage", method= RequestMethod.GET)
 	public ModelAndView viewMessage(HttpSession session, @RequestParam("id") int id) {		
-		List<Message> msgs = ms.getThread(id);
+		List<Message> msgs = ms.getThread(id, (String)session.getAttribute("theme"));
 		
 		session.setAttribute("recId", ms.getCorrespondentId((int)session.getAttribute("id"), msgs.get(0)));
 		
 		//This was originally done in the Business service; however, the datasource was nulling
 		//out and not allowing this transaction. Because of that, it was moved here.
-		for(Message msg : msgs) {
+		for(Message msg : msgs) {         
 			if(msg.getSenderId() != (int)session.getAttribute("id")) {
 				ms.markRead(msg, (String)session.getAttribute("theme"));
 			}

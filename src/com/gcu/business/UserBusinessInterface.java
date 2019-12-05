@@ -106,4 +106,6 @@ public interface UserBusinessInterface {
 	 * @return User
 	 */
 	public User findBusUser(int id);
+
+	public User findDatUser(int id);
 }

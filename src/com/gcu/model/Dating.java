@@ -38,6 +38,8 @@ public class Dating {
 	@NotNull(message="About me section cannot be left blank!")
 	@Size(min = 50, max = 5000, message = "About me must be atleast 50 characters!")
 	private String about;
+	private Questionaire question;
+	private int percentage; //Match percentage of logged in with this user.
 	
 	/**
 	 * Non-default constructor for the creation of a Dating object.
@@ -371,5 +373,20 @@ public class Dating {
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	
+
+	public Questionaire getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Questionaire question) {
+		this.question = question;
+	}
+
+	public int getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
 }

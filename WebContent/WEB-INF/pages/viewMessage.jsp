@@ -15,12 +15,22 @@
 							<c:when test="${sessionScope.theme.equals('social')}">
 								<a href="../social/profile" style="text-decoration: none; color: #000000;">
 							</c:when>
-							<c:otherwise>
+							<c:when test="${sessionScope.theme.equals('social')}">
 								<a href="../business/profile" style="text-decoration: none; color: #000000;">
-							</c:otherwise>
+							</c:when>
+							<c:when test="${sessionScope.theme.equals('dating')}">
+								<a href="../dating/profile" style="test-decoration: none; color: #000000;">
+							</c:when>
 						</c:choose>
 							<h4>
-							<	c:out value="${message.user.firstName} ${message.user.lastName}" />
+							<c:choose>
+								<c:when test="${sessionScope.theme.equals('dating')}">
+									<c:out value="${message.user.dating.nickname}" />
+								</c:when>
+								<c:otherwise>
+									<c:out value="${message.user.firstName} ${message.user.lastName}" />
+								</c:otherwise>
+							</c:choose>
 							</h4>
 						<img src="<c:url value="/assets/img/Placeholder.png" /> " height="50" width="50">
 						</a>
@@ -34,7 +44,7 @@
 							<c:out value="${message.date}"/>
 						</p>
 						<c:choose>
-							<c:when test="${message.type.equals('busUnread') || message.type.equals('socUnread')}">
+							<c:when test="${message.type.equals('busUnread') || message.type.equals('socUnread') || message.type.equals('datUnread')}">
 								<p>Unread</p>
 							</c:when>
 							<c:otherwise>
@@ -61,9 +71,19 @@
 							<c:when test="${sessionScope.theme.equals('business')}">
 								<a href="../connections/view?id=${message.user.id}" style="text-decoration: none; color: #000000;">
 							</c:when>
+							<c:when test="${sessionScope.theme.equals('dating')}">
+								<a href="../dating/view?id=${message.user.id}" style="text-decoration: none; color: #000000;">
+							</c:when>
 						</c:choose>
 							<h4>
-								<c:out value="${message.user.firstName} ${message.user.lastName}" />
+								<c:choose>
+									<c:when test="${sessionScope.theme.equals('dating')}">
+										<c:out value="${message.user.dating.nickname}" />
+									</c:when>
+									<c:otherwise>
+										<c:out value="${message.user.firstName} ${message.user.lastName}" />
+									</c:otherwise>
+								</c:choose>
 							</h4>
 							<img src="<c:url value="/assets/img/Placeholder.png" /> " height="50" width="50">
 						</a>

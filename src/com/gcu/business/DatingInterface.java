@@ -8,7 +8,10 @@
 
 package com.gcu.business;
 
+import java.util.List;
+
 import com.gcu.model.Dating;
+import com.gcu.model.User;
 
 public interface DatingInterface {
 	
@@ -32,4 +35,9 @@ public interface DatingInterface {
 	 * @return boolean
 	 */
 	public boolean createDating(Dating t);
+
+
+	public List<User> getMatches(int id);
+
+	public double calculateMatch(User me, User other);
 }
