@@ -46,7 +46,6 @@ public class User {
 	private int id;
 	private Business business;
 	private Social social; //Added for purpose of listing friends.
-	private Dating dating;
 	private List<Feed> feed;
 	private boolean friend;
 	private boolean connection;
@@ -303,13 +302,5 @@ public class User {
 	 */
 	public void setAccess(String access) {
 		this.access = access;
-	}
-
-	public Dating getDating() {
-		return dating;
-	}
-
-	public void setDating(Dating dating) {
-		this.dating = dating;
 	}
 }

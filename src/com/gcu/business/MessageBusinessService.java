@@ -12,11 +12,9 @@ package com.gcu.business;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.gcu.data.MessageDAO;
 import com.gcu.data.UserDAO;
 import com.gcu.model.Message;
-import com.gcu.model.User;
 
 public class MessageBusinessService implements MessageBusinessInterface {
 	@Autowired
@@ -24,12 +22,6 @@ public class MessageBusinessService implements MessageBusinessInterface {
 	
 	@Autowired
 	private UserDAO uDao;
-	private UserBusinessInterface us;
-	
-	@Autowired
-	public void setUserService(UserBusinessInterface us) {
-		this.us = us;
-	}
 	
 	/**
 	 * This is a method for getting a user's inbox. Currently a stub.
@@ -48,9 +40,6 @@ public class MessageBusinessService implements MessageBusinessInterface {
 		else if (theme == "business") {
 			msgs = dao.getMessages(id, type, "busUnread", "busRead");
 		}
-		else if(theme == "dating") {
-			msgs = dao.getMessages(id, type, "datUnread", "datRead");
-		}
 		else {
 			msgs = dao.getMessages(id, type, theme, theme);
 			
@@ -60,21 +49,12 @@ public class MessageBusinessService implements MessageBusinessInterface {
 		if(msgs != null) {
 			//Attaching user object for the sender of each message
 			for(Message msg : msgs) {
-				User user;
 				//This is done to set the max length of the message to 50 characters. Math.min
 				//is used to prevent exceptions if the string is shorter than 50 characters.
 				msg.setBody(msg.getBody().substring(0, Math.min(msg.getBody().length(), 310)));
+				msg.setUser(uDao.findById(msg.getSenderId()));
 				
-				if(theme.equals("dating")) {
-					user = us.findDatUser(msg.getSenderId());
-				}
-				else {
-					user = uDao.findById(msg.getSenderId());
-				}				
-				
-				msg.setUser(user);
-				
-				msg.setRead(this.checkRead(msg.getId(), id, msg.getParentId()));
+				msg.setRead(this.checkRead(msg.getId(), id));
 			}
 		}
 		
@@ -87,20 +67,13 @@ public class MessageBusinessService implements MessageBusinessInterface {
 	 * @return List<Message>
 	 */
 	@Override
-	public List<Message> getThread(int id, String theme){
+	public List<Message> getThread(int id){
 		List<Message> msgs = dao.getThread(id);
 		msgs.add(0, dao.findById(id)); //Puts the parent message at the start of the list
 		
 		//Attach sender User to each message
 		for(Message msg : msgs) {
-			User user;
-			if(theme == "dating") {
-				user = us.findDatUser(msg.getSenderId());
-			}
-			else {
-				user = uDao.findById(msg.getSenderId());
-			}
-			msg.setUser(user);
+			msg.setUser(uDao.findById(msg.getSenderId()));
 		}
 		
 		return msgs;
@@ -189,9 +162,6 @@ public class MessageBusinessService implements MessageBusinessInterface {
 		else if(theme == "business") {
 			type = "busUnread";
 		}
-		else if(theme == "dating") {
-			type = "datUnread";
-		}
 		
 		//Create new message object for database insertion
 		Message msg = new Message(sid, rid, pid, body, type);
@@ -212,9 +182,6 @@ public class MessageBusinessService implements MessageBusinessInterface {
 		}
 		else if(theme.equals("business")) {
 			t.setType("busRead");
-		}
-		else if(theme.equals("dating")) {
-			t.setType("datRead");
 		}
 		return dao.update(t);
 	}
@@ -239,29 +206,23 @@ public class MessageBusinessService implements MessageBusinessInterface {
 	
 	/**
 	 * 
-	 * @param tid ID of the thread parent if this isn't the parent
+	 * @param tid ID of the thread (Parent)
 	 * @param uid ID of the logged in user
 	 * @return boolean
 	 */
-	public boolean checkRead(int tid, int uid, int pid) {
-		Message msg;
-		if(pid != -1) {
-			msg = dao.getLastThread(tid);
-		}
-		else {
-			msg = dao.findById(tid);
-		}
+	public boolean checkRead(int tid, int uid) {
+		Message msg = dao.getLastThread(tid);
 		
-		if(msg == null) {
+		if(msg == null){
 			return false;
 		}
+		
 		//User sent the last message, so they've read the thread
 		if(uid == msg.getSenderId()) {
 			return true;
 		}
 		else if(msg.getType().equals("socUnread") ||
-				msg.getType().equals("busUnread") ||
-				msg.getType().equals("datUnread")) {
+				msg.getType().equals("busUnread")) {
 			return false;
 		}
 		else {

@@ -317,29 +317,15 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navcol-2">
 						<ul class="nav navbar-nav mr-auto">
-							<c:if test="${sessionScope.hasDating != null && sessionScope.question != null}">
+							<c:if test="${sessionScope.hasDating != null}">
 							
 									<li class="nav-item" role="presentation"><a
 										style="color: #ffffff;" class="nav-link"
 										href="../dating/dat">Dashboard</a></li>
-									<li class="nav-item" role="presentation"><a
-										style="color: #ffffff;" class="nav-link"
-										href="../dating/matches">View Matches</a></li>
-									<li class="nav-item" role="presentation"><a
-										style="color: #ffffff;" class="nav-link"
-										href="../messages/inbox">Messages
-										<c:if test="${sessionScope.messages > 0}">
-											<c:out value="(${sessionScope.messages})" />
-										</c:if>
-										</a>
 							</c:if>
 								
 						</ul>
 						<span class="navbar-text actions">
-						<c:if test="${sessionScope.hasDating != null && sessionScope.question != null}">
-							<a href="../dating/profile" class="login" 
-								style="color: #ffffff; font-size: 14px;">My Profile</a>
-						</c:if>
 						<a class="btn btn-light action-button" role="button"
 							href="../logout/log"
 							style="background-color: #dd00b9; color: #ffffff; font-size: 14px;">Log

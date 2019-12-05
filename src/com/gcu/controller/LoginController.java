@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gcu.business.BusinessInterface;
 import com.gcu.business.DatingInterface;
-import com.gcu.business.QuestionInterface;
 import com.gcu.business.SocialBusinessInterface;
 import com.gcu.business.UserBusinessInterface;
 import com.gcu.model.User;
@@ -33,7 +32,6 @@ public class LoginController {
 	private SocialBusinessInterface ss;
 	private BusinessInterface bs;
 	private DatingInterface ds;
-	private QuestionInterface qs;
 	
 	/**
 	 * Dependency injection for the UserBusinessService.
@@ -65,22 +63,9 @@ public class LoginController {
 		this.bs = bs;
 	}
 	
-	/**
-	 * Dependency injection for the Dating Service.
-	 * @param ds
-	 */
 	@Autowired
 	public void setDatingService(DatingInterface ds) {
 		this.ds = ds;
-	}
-	
-	/**
-	 * Dependency injection for the Question Service.
-	 * @param qs
-	 */
-	@Autowired
-	public void setQuestionService(QuestionInterface qs) {
-		this.qs = qs;
 	}
 	
 	/**
@@ -118,9 +103,6 @@ public class LoginController {
 		}
 		if(ds.checkDating(user.getId())) { //Checks if the user has a dating profile
 			session.setAttribute("hasDating", true);
-		}
-		if(qs.checkQuestion(user.getId())) { //Checks if the user has done the questionaire
-			session.setAttribute("question", true);
 		}
 		session.setAttribute("id", user.getId()); //Sets user id for grabbing data
 		session.setAttribute("access", user.getAccess()); //Sets the access level of the account logged in

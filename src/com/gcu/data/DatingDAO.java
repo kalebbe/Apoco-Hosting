@@ -39,19 +39,12 @@ public class DatingDAO implements DataAccessInterface<Dating>{
 	}
 
 	/**
-	 * Grabs all dating profiles from the database
+	 * Method stub. Not in use
 	 * @return List<Dating>
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dating> findAll() {
-		try {
-			String sql = "SELECT * FROM datprofiles";
-			List<Dating> dat = jdbcTemp.query(sql, new DatingMapper());
-			return dat;
-		} catch(EmptyResultDataAccessException e) {
-			return null;
-		}
+		return null;
 	}
 
 	/**

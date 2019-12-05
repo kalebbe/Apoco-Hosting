@@ -35,35 +35,16 @@
 	<c:forEach var="message" items="${messages}">
 		<a href="../messages/viewMessage?id=${message.id}" style="text-decoration: none; color: #000000;">
 		<c:choose>
-			<c:when test="${message.type.equals('socUnread') || message.type.equals('busUnread') ||
-				message.type.equals('datUnread') || !message.read}">
-				<c:choose>
-					<c:when test="${sessionScope.theme.equals('social')}">
-						<div class="row" style="background-color: #005024">
-					</c:when>
-					<c:when test="${sessionScope.theme.equals('business')}">
-						<div class="row" style="background-color: #09136e">
-					</c:when>
-					<c:when test="${sessionScope.theme.equals('dating')}">
-						<div class="row" style="background-color: #dd00b9">
-					</c:when>
-				</c:choose>
+			<c:when test="${message.type.equals('socUnread') || message.type.equals('busUnread') || !message.read}">
+				<div class="row">
 			</c:when>
 			<c:otherwise>
-				<div class="row">
+				<div class="row" style="background-color: #D3D3D3">
 			</c:otherwise>
 		</c:choose>
 			<div class="col-md-2">
 				<h4>
-					<c:choose>
-						<c:when test="${sessionScope.theme.equals('dating')}">
-							<c:out value="${message.user.dating.nickname}" />
-						</c:when>
-						<c:otherwise>
-							<c:out value="${message.user.firstName} ${message.user.lastName}"/>
-						</c:otherwise>
-					</c:choose>
-					
+					<c:out value="${message.user.firstName} ${message.user.lastName}"/>
 				</h4>
 				<img src="<c:url value="/assets/img/Placeholder.png" /> " height="50" width="50">
 			</div>

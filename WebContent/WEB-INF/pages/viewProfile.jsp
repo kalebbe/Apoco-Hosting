@@ -152,7 +152,8 @@
 										Update</button>
 									<br>
 								</div>
-								
+								<p style="font-size: xx-small;" align="center">Double click
+									your post to edit it!</p>
 							</c:when>
 							<c:otherwise>
 								<p style="white-space: pre-wrap"><c:out value="${feed.feed}" /></p>

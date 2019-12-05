@@ -20,12 +20,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gcu.data.BusinessDAO;
-import com.gcu.data.DatingDAO;
 import com.gcu.data.FeedDAO;
 import com.gcu.data.SocialDAO;
 import com.gcu.data.UserDAO;
 import com.gcu.model.Business;
-import com.gcu.model.Dating;
 import com.gcu.model.Feed;
 import com.gcu.model.Social;
 import com.gcu.model.User;
@@ -42,9 +40,6 @@ public class UserBusinessService implements UserBusinessInterface {
 	
 	@Autowired
 	private BusinessDAO bDAO;
-	
-	@Autowired
-	private DatingDAO dDAO;
 
 	private FeedBusinessInterface fs;
 
@@ -319,17 +314,6 @@ public class UserBusinessService implements UserBusinessInterface {
 		//Setting the age of the user
 		bus.setAge(Period.between(birthDate,  LocalDate.now()).getYears());
 		user.setBusiness(bus);
-		return user;
-	}
-	
-	@Override
-	public User findDatUser(int id) {
-		User user = dao.findById(id);
-		Dating dat = dDAO.findById(id);
-		LocalDate birthDate = LocalDate.of(dat.getBirthYear(), dat.getBirthMonth(), dat.getBirthDay());
-		
-		dat.setAge(Period.between(birthDate, LocalDate.now()).getYears());
-		user.setDating(dat);
 		return user;
 	}
 }

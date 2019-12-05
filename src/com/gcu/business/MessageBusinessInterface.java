@@ -85,7 +85,7 @@ public interface MessageBusinessInterface {
 	 * @param id
 	 * @return List<Message>
 	 */
-	public List<Message> getThread(int id, String theme);
+	public List<Message> getThread(int id);
 
 	/**
 	 * Marks thread as read
@@ -102,5 +102,4 @@ public interface MessageBusinessInterface {
 	 * @return int
 	 */
 	public int getCorrespondentId(int id, Message msg);
-
 }
