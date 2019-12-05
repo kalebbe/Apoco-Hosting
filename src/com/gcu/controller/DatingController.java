@@ -21,10 +21,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gcu.business.DatingInterface;
+import com.gcu.business.MessageBusinessInterface;
+import com.gcu.business.QuestionInterface;
+import com.gcu.business.UserBusinessInterface;
 import com.gcu.model.Dating;
+import com.gcu.model.Questionaire;
 import com.gcu.model.User;
 import com.gcu.utilities.ControllerLists;
 
@@ -34,6 +39,9 @@ public class DatingController {
 	
 	private ControllerLists cl;
 	private DatingInterface ds;
+	private QuestionInterface qs;
+	private UserBusinessInterface us;
+	private MessageBusinessInterface ms;
 	
 	/**
 	 * Dependency injection for Controller List
@@ -52,6 +60,21 @@ public class DatingController {
 	public void setDatingService(DatingInterface ds) {
 		this.ds = ds;
 	}
+	
+	@Autowired
+	public void setQuestionService(QuestionInterface qs) {
+		this.qs = qs;
+	}
+	
+	@Autowired
+	public void setUserService(UserBusinessInterface us) {
+		this.us = us;
+	}
+	
+	@Autowired
+	public void setMessageService(MessageBusinessInterface ms) {
+		this.ms = ms;
+	}
 
 	/**
 	 * This method routes the user to either the profile creator or dating dashboard if
@@ -65,9 +88,14 @@ public class DatingController {
 			return new ModelAndView("redirect:../login/log", "user", new User());
 		}
 		session.setAttribute("theme", "dating"); //Setting theme for color scheme
+		session.setAttribute("requests", 0);
+		session.setAttribute("messages", ms.getNotifications((int)session.getAttribute("id"), "datUnread"));
 		
-		if(session.getAttribute("hasDating") != null) { //Has profile, goes to dash.
-			return new ModelAndView("datDash", "dating", new Dating());
+		if(session.getAttribute("hasDating") != null && session.getAttribute("question") != null) {
+			return new ModelAndView("datDash", "", null);
+		}
+		else if(session.getAttribute("hasDating") != null){
+			return new ModelAndView("questionaire", "question", new Questionaire());
 		}
 		else { //Doesn't have a profile, goes to creator.
 			return new ModelAndView("datProfile", "dating", new Dating());
@@ -95,11 +123,46 @@ public class DatingController {
 		}
 		else if (ds.createDating(dat)){
 			session.setAttribute("hasDating", true);
-			return new ModelAndView("datDash", "dating", dat);
+			return new ModelAndView("questionaire", "question", new Questionaire());
 		}
 		else {
 			return new ModelAndView("datProfile", "dating", new Dating());
 		}
+	}
+	
+	@RequestMapping(path="/submitQue", method = RequestMethod.POST)
+	public ModelAndView submitDat(@ModelAttribute("question") Questionaire que, HttpSession session) {
+		que.setUserId((int)session.getAttribute("id"));
+		if(qs.createQuestion(que)) {
+			session.setAttribute("question", true);
+			return new ModelAndView("datDash", "", null);
+		}
+		else {
+			return new ModelAndView("questionaire", "question", new Questionaire());
+		}
+	}
+	
+	@RequestMapping(path="/profile", method = RequestMethod.GET)
+	public ModelAndView viewProfile(HttpSession session) {
+		int id = (int)session.getAttribute("id");
+		User user = us.findDatUser(id);
+		user = qs.getQuestionaire(user);
+		session.setAttribute("profile", "user");
+		return new ModelAndView("datViewProfile", "user", user);
+	}
+	
+	@RequestMapping(path = "/view")
+	public ModelAndView viewOther(@RequestParam int id, HttpSession session) {
+		User user = us.findDatUser(id);
+		user = qs.getQuestionaire(user);
+		session.setAttribute("profile", "match");
+		return new ModelAndView("datViewProfile", "user", user);
+	}
+	
+	@RequestMapping(path = "/matches")
+	public ModelAndView getMatches(HttpSession session) {
+		List<User> users = ds.getMatches((int)session.getAttribute("id"));
+		return new ModelAndView("matchList", "users", users);
 	}
 	
 	/**
